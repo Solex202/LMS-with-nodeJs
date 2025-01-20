@@ -20,9 +20,47 @@ const ProgramSchema = new Schema(
             type: String,
             required: true,
             default: function (){
-                return
+                return(
+                    this.name
+                    .split(" ")
+                    .map(name => name[0])
+                    .join("")
+                    .toUpperCase()+
+                    Math.floor(10 + Math.random()* 90)+
+                    Math.floor(10+ Math.random()*90)
+                    
+                )
             }
-        }
+        },
+        createdBy:{
+            type: Schema.Types.ObjectId,
+            ref: "Admin",
+            required: true,
+        },
+        teachers:[
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Teacher"
+            }
+        ],
+        students:[
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Student"
+            }
+        ],
+        subjects:[
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Subject"
+            }
+        ]
 
-    }
+    },
+    {timeStamp: true}
+    
 )
+
+const Program = mongoose.model("Program", ProgramSchema)
+
+module.exports = Program
