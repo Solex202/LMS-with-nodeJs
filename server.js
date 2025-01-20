@@ -1,16 +1,16 @@
-const express = require('express'); // Import express
-const app = express();             // Create an instance of express
+const http = require("http");     
 
-// Middleware to parse incoming JSON requests
-app.use(express.json());
+const app = require("./app/app");
 
+
+const server = http.createServer(app)
 // Define a route
-app.get('/', (req, res) => {
-    res.send('Hello, world!'); // Send a response to the client
-});
+// server.addListener('/', (req, res) => {
+//     res.send('Hello, world!'); // Send a response to the client
+// });
 
 // Start the server
-const PORT = 3000;
-app.listen(PORT, () => {
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
